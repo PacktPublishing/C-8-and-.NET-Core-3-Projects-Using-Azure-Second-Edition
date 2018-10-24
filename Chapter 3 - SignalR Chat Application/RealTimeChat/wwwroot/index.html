@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Realtime Chat</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/lib/browser/signalr.min.js"></script>
+
+    <script type="text/javascript">
+
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl('/chat')
+            .build();
+
+        connection.start();
+
+        connection.on('UpdateChat', (user, message) => {
+            updateChat(user, message);
+        });
+        connection.on('Archived', (message) => {
+            updateChat('system', message);
+        });
+
+        function enterChat() {
+            $('#user').text($('#username').val());
+            sendWelcomeMessage($('#username').val());
+            $('#namePanel').hide();
+            $('#chatPanel').show();
+        };
+
+        function sendMessage() {
+            let message = $('#message').val();
+            let user = $('#user').text();
+            $('#message').val('');
+            connection.invoke('Send', user, message);
+        };
+
+        function sendWelcomeMessage(user) {
+            connection.invoke('Send','system',user+' joined the chat');
+        };
+
+        function updateChat(user, message) {
+            let chat = '<b>' + user + ':</b> ' + message +
+            '<br/>'
+            $('#chat').append(chat);
+            if ($('#chat')["0"].innerText.length > 0) {
+                $('#historyPanel').show();
+                $('#archivePanel').show();
+            }
+        };
+
+        function archiveChat() {
+            let message = $('#chat')["0"].innerText;
+            let archivePath = $('#archivePath').val();
+            let archivedBy = $('#username').val();
+            connection.invoke('ArchiveChat', archivedBy,
+             archivePath, message);
+        };
+    </script>
+
+</head>
+<body>
+    <div class="container col-md-10">
+        <h1>Welcome to Signal R <label id="user"></label></h1>
+    </div>
+    <hr />
+    <div id="namePanel" class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="username" class="form-label">Username:</label>
+            </div>
+            <div class="col-md-4">
+                <input id="username" type="text" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-default"
+                        onclick="enterChat()">
+                    Enter
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="chatPanel" class="container" style="display: none">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="message" class="form-label">
+                    Message:
+                </label>
+            </div>
+            <div class="col-md-4">
+                <input id="message" type="text" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-info"
+                        onclick="sendMessage()">
+                    Send
+                </button>
+            </div>
+        </div>
+        <div id="historyPanel" style="display:none;">
+            <h3>Chat History</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="chat" class="well well-lg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="archivePanel" class="container" style="display:none;">
+        <div class="row">
+            <div class="col-md-2">
+                <label for="archivePath" class="form-
+                 label">Archive Path:</label>
+            </div>
+            <div class="col-md-4">
+                <input id="archivePath" type="text" class="form-control" />
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success"
+                        onclick="archiveChat()">
+                    Archive Chat
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

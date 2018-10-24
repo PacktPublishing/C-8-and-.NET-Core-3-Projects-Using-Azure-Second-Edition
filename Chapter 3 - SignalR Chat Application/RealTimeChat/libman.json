@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "filesystem",
+      "library": "node_modules\\@aspnet\\signalr\\dist\\browser\\",
+      "destination": "wwwroot/lib/browser/"
+    }
+  ]
+}
