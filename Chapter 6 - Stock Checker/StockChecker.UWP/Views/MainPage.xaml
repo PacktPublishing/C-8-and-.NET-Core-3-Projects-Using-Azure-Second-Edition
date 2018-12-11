@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="StockChecker.UWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:StockChecker.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="50" />
+            <RowDefinition MaxHeight="50" />
+            <RowDefinition MaxHeight="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Product Id:" Grid.Row="0" Grid.Column="0" />
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding ProductId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <TextBlock Text="Quantity:" Grid.Row="1" Grid.Column="0" />
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Button Command="{x:Bind ViewModel.UpdateQuantity}"
+                Grid.Row="2" Grid.Column="0">
+            <TextBlock Text="Update Quantity" />
+        </Button>
+    </Grid>
+</Page>
