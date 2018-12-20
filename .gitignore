@@ -51,3 +51,5 @@
 /Chapter 6 - Stock Checker/StockChecker.UWP/bin
 /Chapter 6 - Stock Checker/StockChecker.UWP/obj
 /Chapter 6 - Stock Checker/StockChecker.Api/obj
+/Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/bin/Debug/netcoreapp2.1
+/Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/obj/Debug/netcoreapp2.1

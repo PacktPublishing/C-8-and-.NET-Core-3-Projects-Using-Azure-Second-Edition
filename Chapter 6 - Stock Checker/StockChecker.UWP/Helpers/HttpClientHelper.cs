@@ -1,4 +1,5 @@
-﻿using StockChecker.UWP.Interfaces;
+﻿using IdentityModel.Client;
+using StockChecker.UWP.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace StockChecker.UWP.Helpers
     public class HttpClientHelper : IHttpStockClientHelper
     {
         static HttpClient _httpClient;
+        private string _accessToken;
 
         public HttpClientHelper(Uri baseAddress)
         {
@@ -37,6 +39,38 @@ namespace StockChecker.UWP.Helpers
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             
             await _httpClient.PutAsync(path, httpContent);
+        }
+
+        public async Task<bool> Login(string username, string password)
+        {            
+            var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = "https://localhost:5001",               
+                Policy =
+                {                    
+                    ValidateIssuerName = false,                                        
+                }                
+            });
+
+            var response = await _httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
+            {
+                Address = disco.TokenEndpoint,
+                ClientId = "StockChecker",
+                ClientSecret = "secret",
+                Scope = "StockCheckerApi",
+
+                UserName = username,
+                Password = password
+            });
+
+            if (response.IsError)
+            {
+                // ToDo: Log error
+                return false;
+            }
+
+            _accessToken = response.AccessToken;
+            return true;
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,7 +20,18 @@ namespace StockChecker.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore()
+                .AddAuthorization()
                 .AddJsonFormatters();
+                        
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+                .AddIdentityServerAuthentication(options =>
+                {
+                    // base-address of your identityserver
+                    options.Authority = "https://localhost:5001";
+
+                    // name of the API resource
+                    options.ApiName = "StockCheckerApi";                    
+                });            
 
             var connection = @"Server=(localdb)\MSSQLLocalDb;Database=StockCheckerDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<StockContext>
@@ -35,6 +48,7 @@ namespace StockChecker.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseAuthentication();
             app.UseMvc();
             
         }

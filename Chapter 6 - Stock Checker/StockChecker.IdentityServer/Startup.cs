@@ -19,7 +19,9 @@ namespace StockChecker.IdentityServer
             services
                 .AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddInMemoryClients(new List<Client>())
+                .AddInMemoryClients(IdentityServerHelper.GetClients())
+                .AddInMemoryApiResources(IdentityServerHelper.GetApiResources())
+                .AddTestUsers(IdentityServerHelper.GetUsers())
                 .AddInMemoryIdentityResources(new List<IdentityResource>());
         }
 

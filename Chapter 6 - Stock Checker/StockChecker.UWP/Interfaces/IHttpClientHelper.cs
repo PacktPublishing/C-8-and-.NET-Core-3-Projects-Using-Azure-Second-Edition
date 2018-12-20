@@ -10,5 +10,6 @@ namespace StockChecker.UWP.Interfaces
     {
         Task<int> GetQuantityAsync(int productId);
         Task UpdateQuantityAsync(int productId, int newQuantity);
+        Task<bool> Login(string username, string password);
     }
 }
