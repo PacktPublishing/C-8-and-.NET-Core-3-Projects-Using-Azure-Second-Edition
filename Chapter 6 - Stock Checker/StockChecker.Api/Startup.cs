@@ -25,12 +25,10 @@ namespace StockChecker.Api
                         
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddIdentityServerAuthentication(options =>
-                {
-                    // base-address of your identityserver
-                    options.Authority = "https://localhost:5001";
-
-                    // name of the API resource
-                    options.ApiName = "StockCheckerApi";                    
+                {                    
+                    options.Authority = "https://localhost:5001";                    
+                    options.ApiName = "StockCheckerApi";
+                    //options.ApiSecret = "secret";                    
                 });            
 
             var connection = @"Server=(localdb)\MSSQLLocalDb;Database=StockCheckerDB;Trusted_Connection=True;ConnectRetryCount=0";

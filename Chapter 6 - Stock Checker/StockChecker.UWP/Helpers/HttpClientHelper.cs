@@ -14,7 +14,7 @@ namespace StockChecker.UWP.Helpers
     public class HttpClientHelper : IHttpStockClientHelper
     {
         static HttpClient _httpClient;
-        private string _accessToken;
+        static string _accessToken;
 
         public HttpClientHelper(Uri baseAddress)
         {
@@ -26,6 +26,7 @@ namespace StockChecker.UWP.Helpers
         {
             string path = $"api/stock/{productId}";
 
+            _httpClient.SetBearerToken(_accessToken);
             string quantityString = await _httpClient.GetStringAsync(path);
 
             return int.Parse(quantityString);
@@ -35,6 +36,7 @@ namespace StockChecker.UWP.Helpers
         {
             string path = $"api/stock/{productId}";
 
+            _httpClient.SetBearerToken(_accessToken);
             var httpContent = new StringContent(newQuantity.ToString());
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             
@@ -69,7 +71,8 @@ namespace StockChecker.UWP.Helpers
                 return false;
             }
 
-            _accessToken = response.AccessToken;
+            _accessToken = response.AccessToken;                        
+
             return true;
         }
     }

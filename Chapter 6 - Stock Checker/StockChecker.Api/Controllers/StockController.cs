@@ -11,7 +11,7 @@ using StockChecker.Api.Models;
 
 namespace StockChecker.Api.Controllers
 {
-    [Authorize(JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class StockController : ControllerBase

@@ -28,7 +28,7 @@ namespace StockChecker.UWP.Views
         {
             this.InitializeComponent();
             ViewModel = new LoginViewModel(
-                new HttpClientHelper(new Uri("http://localhost:50619")));
+                new HttpClientHelper(new Uri("https://localhost:44371")));
             DataContext = ViewModel;
         }
 
