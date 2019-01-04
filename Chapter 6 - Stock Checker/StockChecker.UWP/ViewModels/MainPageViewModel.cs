@@ -19,6 +19,10 @@ namespace StockChecker.UWP.ViewModels
         private int _productId;
         private int _quantity;
         private int _originalQuantity;
+        private bool _canViewQuantity;
+        private bool _canUpdateQuantity;
+        private string _userRole;
+
 
         public int ProductId
         {
@@ -62,7 +66,19 @@ namespace StockChecker.UWP.ViewModels
         private readonly IHttpStockClientHelper _httpClientHelper;
 
         public RelayCommand UpdateQuantity { get; set; }
-        
+        public string UserRole
+        {
+            get => _userRole;
+            set
+            {
+                if (UpdateField(ref _userRole, value))
+                {
+                    CanViewQuantity = UserRole == "Administrator" || UserRole == "Sales";
+                    CanUpdateQuantity = UserRole == "Administrator" || UserRole == "Maintenance";
+                }
+            }
+        }
+
         public MainPageViewModel(IHttpStockClientHelper httpClientHelper)
         {
             _httpClientHelper = httpClientHelper;
@@ -72,7 +88,8 @@ namespace StockChecker.UWP.ViewModels
                 await _httpClientHelper.UpdateQuantityAsync(                    
                     ProductId, Quantity);
                 await RefreshQuantity();                
-            }, () => Quantity != _originalQuantity);            
+            }, 
+            () => Quantity != _originalQuantity && CanUpdateQuantity);            
         }
 
         private async Task RefreshQuantity()
@@ -80,6 +97,24 @@ namespace StockChecker.UWP.ViewModels
             Quantity = await _httpClientHelper.GetQuantityAsync(ProductId);
             _originalQuantity = Quantity;
             UpdateQuantity.RaiseCanExecuteChanged();
+        }
+
+        public bool CanUpdateQuantity
+        {
+            get => _canUpdateQuantity;
+            set
+            {
+                UpdateField(ref _canUpdateQuantity, value);
+            }            
+        }
+
+        public bool CanViewQuantity
+        {
+            get => _canViewQuantity;
+            set
+            {
+                UpdateField(ref _canViewQuantity, value);
+            }            
         }
     }
 }

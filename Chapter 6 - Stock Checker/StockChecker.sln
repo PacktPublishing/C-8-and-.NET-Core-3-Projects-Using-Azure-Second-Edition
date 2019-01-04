@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.106
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockChecker.Api", "StockChecker.Api\StockChecker.Api.csproj", "{A5548F8C-FC0C-4A38-B8EB-6C977F290A74}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockChecker.UWP", "StockChecker.UWP\StockChecker.UWP.csproj", "{B5EA0824-E23F-49C4-9C20-A21C61E99BF8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockChecker.IdentityServer", "StockChecker.IdentityServer\StockChecker.IdentityServer.csproj", "{689E2B14-6456-4C79-86DD-5563C901FFD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockChecker.ConsoleClientApp", "StockChecker.ConsoleClientApp\StockChecker.ConsoleClientApp.csproj", "{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,26 @@ Global
 		{689E2B14-6456-4C79-86DD-5563C901FFD2}.Release|x64.Build.0 = Release|Any CPU
 		{689E2B14-6456-4C79-86DD-5563C901FFD2}.Release|x86.ActiveCfg = Release|Any CPU
 		{689E2B14-6456-4C79-86DD-5563C901FFD2}.Release|x86.Build.0 = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|ARM.Build.0 = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|x64.Build.0 = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Debug|x86.Build.0 = Debug|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|ARM.Build.0 = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|ARM64.Build.0 = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|x64.ActiveCfg = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|x64.Build.0 = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|x86.ActiveCfg = Release|Any CPU
+		{5F3A13AA-B981-4CC5-A2DC-F7D905532E11}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

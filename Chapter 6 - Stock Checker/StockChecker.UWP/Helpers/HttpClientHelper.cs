@@ -1,4 +1,5 @@
-﻿using IdentityModel.Client;
+﻿using IdentityModel;
+using IdentityModel.Client;
 using StockChecker.UWP.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace StockChecker.UWP.Helpers
     {
         static HttpClient _httpClient;
         static string _accessToken;
+        static DiscoveryResponse _discoveryResponse;
 
         public HttpClientHelper(Uri baseAddress)
         {
@@ -45,35 +47,47 @@ namespace StockChecker.UWP.Helpers
 
         public async Task<bool> Login(string username, string password)
         {            
-            var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            _discoveryResponse = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = "https://localhost:5001",               
                 Policy =
                 {                    
-                    ValidateIssuerName = false,                                        
+                    ValidateIssuerName = false,
                 }                
             });
 
             var response = await _httpClient.RequestPasswordTokenAsync(new PasswordTokenRequest
             {
-                Address = disco.TokenEndpoint,
+                Address = _discoveryResponse.TokenEndpoint,
                 ClientId = "StockChecker",
                 ClientSecret = "secret",
-                Scope = "StockCheckerApi",
+                Scope = "openid roles StockCheckerApi",
 
                 UserName = username,
                 Password = password
             });
-
+            
             if (response.IsError)
             {
                 // ToDo: Log error
                 return false;
             }
 
-            _accessToken = response.AccessToken;                        
+            _accessToken = response.AccessToken;                                    
 
             return true;
+        }
+
+        public async Task<string> GetUserRole()
+        {
+            var userInfo = await _httpClient.GetUserInfoAsync(new UserInfoRequest()
+            {
+                Address = _discoveryResponse.UserInfoEndpoint,
+                Token = _accessToken
+            });
+
+            string role = userInfo.Claims.First(a => a.Type == JwtClaimTypes.Role).Value;
+            return role;
         }
     }
 }

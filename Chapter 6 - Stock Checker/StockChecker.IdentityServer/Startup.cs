@@ -39,7 +39,7 @@ namespace StockChecker.IdentityServer
                 .AddInMemoryClients(IdentityServerHelper.GetClients())
                 .AddInMemoryApiResources(IdentityServerHelper.GetApiResources())
                 .AddTestUsers(IdentityServerHelper.GetUsers())
-                .AddInMemoryIdentityResources(new List<IdentityResource>());
+                .AddInMemoryIdentityResources(IdentityServerHelper.GetIdentityResources());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,10 +12,14 @@ namespace StockChecker.ConsoleClientApp
 
         static async Task Main(string[] args)
         {
+            Console.WriteLine("Start - press any key");
+            Console.ReadLine();
+
             _httpClient = new HttpClient();
 
             var success = await Login("Lucy", "password123");
 
+            Console.WriteLine("Done - press any key");
             Console.ReadLine();
         }
 
@@ -37,7 +41,7 @@ namespace StockChecker.ConsoleClientApp
                 Address = disco.TokenEndpoint,
                 ClientId = "StockChecker",
                 ClientSecret = "secret",
-                Scope = "StockCheckerApi",
+                Scope = "openid roles StockCheckerApi",
 
                 UserName = username,
                 Password = password
@@ -46,6 +50,7 @@ namespace StockChecker.ConsoleClientApp
             if (response.IsError)
             {
                 // ToDo: Log error
+                Console.WriteLine($"Error: {response.ErrorDescription}");
                 return false;
             }
 

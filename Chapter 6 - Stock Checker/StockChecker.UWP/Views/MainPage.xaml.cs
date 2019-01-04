@@ -24,6 +24,14 @@ namespace StockChecker.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            var viewModel = DataContext as MainPageViewModel;
+            viewModel.UserRole = e.Parameter.ToString();
+        }
+
         public MainPage()
         {
             this.InitializeComponent();

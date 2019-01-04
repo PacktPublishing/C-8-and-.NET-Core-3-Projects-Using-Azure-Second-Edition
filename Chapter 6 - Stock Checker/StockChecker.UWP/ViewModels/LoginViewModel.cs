@@ -53,8 +53,10 @@ namespace StockChecker.UWP.ViewModels
             bool loggedIn = await _httpStockClientHelper.Login(Username, Password);
             if (loggedIn)
             {
+                string userRole = await _httpStockClientHelper.GetUserRole();
+
                 var frame = Window.Current.Content as Frame;
-                frame.Navigate(typeof(MainPage), null);
+                frame.Navigate(typeof(MainPage), userRole);
             }
         }
 
