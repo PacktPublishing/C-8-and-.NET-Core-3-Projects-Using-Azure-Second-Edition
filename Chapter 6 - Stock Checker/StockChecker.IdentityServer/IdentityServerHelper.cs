@@ -68,7 +68,7 @@ namespace StockChecker.IdentityServer
                     Password = "password123",
                     Claims = new List<Claim>()
                     {
-                        new Claim(JwtClaimTypes.Role, "Mainenance")
+                        new Claim(JwtClaimTypes.Role, "Maintenance")
                     }
                 },
                 new TestUser

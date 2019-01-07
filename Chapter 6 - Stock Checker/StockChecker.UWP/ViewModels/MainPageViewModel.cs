@@ -66,6 +66,9 @@ namespace StockChecker.UWP.ViewModels
         private readonly IHttpStockClientHelper _httpClientHelper;
 
         public RelayCommand UpdateQuantity { get; set; }
+
+        public RelayCommand DecreaseQuantity { get; set; }
+
         public string UserRole
         {
             get => _userRole;
@@ -89,7 +92,15 @@ namespace StockChecker.UWP.ViewModels
                     ProductId, Quantity);
                 await RefreshQuantity();                
             }, 
-            () => Quantity != _originalQuantity && CanUpdateQuantity);            
+            () => Quantity != _originalQuantity && CanUpdateQuantity);        
+            
+            DecreaseQuantity = new RelayCommand(async () =>
+            {
+                await _httpClientHelper.UpdateQuantityAsync(
+                    ProductId, Quantity - 1);
+                await RefreshQuantity();
+            }, 
+            () => Quantity > 0 && CanUpdateQuantity);
         }
 
         private async Task RefreshQuantity()
@@ -97,6 +108,7 @@ namespace StockChecker.UWP.ViewModels
             Quantity = await _httpClientHelper.GetQuantityAsync(ProductId);
             _originalQuantity = Quantity;
             UpdateQuantity.RaiseCanExecuteChanged();
+            DecreaseQuantity.RaiseCanExecuteChanged();
         }
 
         public bool CanUpdateQuantity

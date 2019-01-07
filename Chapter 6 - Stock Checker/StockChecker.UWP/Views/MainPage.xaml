@@ -31,9 +31,14 @@
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Visibility="{Binding CanViewQuantity, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
-        <Button Command="{x:Bind ViewModel.UpdateQuantity}"
+        <Button Command="{Binding UpdateQuantity}"
                 Grid.Row="2" Grid.Column="0">
             <TextBlock Text="Update Quantity" />
+        </Button>
+
+        <Button Command="{Binding DecreaseQuantity}"
+                Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Decrease Quantity" />
         </Button>
     </Grid>
 </Page>

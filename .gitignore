@@ -54,3 +54,5 @@
 /Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/bin/Debug/netcoreapp2.1
 /Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/obj/Debug/netcoreapp2.1
 /Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/obj
+/Chapter 6 - Stock Checker/StockChecker.Api/bin/Debug/netcoreapp3.0
+/Chapter 6 - Stock Checker/StockChecker.IdentityServer/bin/Debug/netcoreapp3.0
