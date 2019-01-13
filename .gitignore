@@ -56,3 +56,6 @@
 /Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/obj
 /Chapter 6 - Stock Checker/StockChecker.Api/bin/Debug/netcoreapp3.0
 /Chapter 6 - Stock Checker/StockChecker.IdentityServer/bin/Debug/netcoreapp3.0
+/Chapter 7 - Photo Storage/.vs/PhotoStorage
+/Chapter 7 - Photo Storage/PhotoStorage.WindowsService/obj
+/Chapter 7 - Photo Storage/PhotoStorage.WindowsService/bin/Debug/netstandard2.0
