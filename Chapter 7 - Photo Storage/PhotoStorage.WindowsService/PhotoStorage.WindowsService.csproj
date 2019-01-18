@@ -5,7 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="microsoft.extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="microsoft.windows.compatibility" Version="2.0.1" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhotoStorage.WindowsService.AzureClient;
+using System;
 using System.ServiceProcess;
 
 namespace PhotoStorage.WindowsService
@@ -9,7 +10,8 @@ namespace PhotoStorage.WindowsService
 
         protected override void OnStart(string[] args)
         {
-            _fileMonitor = new FileMonitor("c:\tmp");
+            var cloudStorageClientService = new AzureStorageClientService();
+            _fileMonitor = new FileMonitor(@"c:\tmp", cloudStorageClientService);
         }
 
         protected override void OnStop()

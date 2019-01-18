@@ -59,3 +59,6 @@
 /Chapter 7 - Photo Storage/.vs/PhotoStorage
 /Chapter 7 - Photo Storage/PhotoStorage.WindowsService/obj
 /Chapter 7 - Photo Storage/PhotoStorage.WindowsService/bin/Debug/netstandard2.0
+/Chapter 7 - Photo Storage/.vs/config
+/Chapter 7 - Photo Storage/PhotoStorage.TestRunnerApp/bin/Debug/netcoreapp3.0
+/Chapter 7 - Photo Storage/PhotoStorage.TestRunnerApp/obj
