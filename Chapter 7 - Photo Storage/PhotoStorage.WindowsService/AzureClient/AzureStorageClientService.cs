@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using PhotoStorage.WindowsService.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,15 +13,11 @@ namespace PhotoStorage.WindowsService.AzureClient
 {
     public class AzureStorageClientService : ICloudStorageClientService
     {
-        private string _connectionString;
-        public AzureStorageClientService()
-        {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+        private readonly AppSettings _appSettings;        
 
-            var configuration = builder.Build();
-            _connectionString = configuration["ConnectionStrings:netcodephotostorage"];
+        public AzureStorageClientService(AppSettings appSettings)
+        {
+            _appSettings = appSettings;
         }
 
         public async Task<bool> FileExists(string name)
@@ -57,7 +54,7 @@ namespace PhotoStorage.WindowsService.AzureClient
 
         private CloudBlockBlob GetBlockBlobReference(string fileName)
         {
-            if (CloudStorageAccount.TryParse(_connectionString,
+            if (CloudStorageAccount.TryParse(_appSettings.ConnectionString,
                 out CloudStorageAccount storageAccount))
             {
                 var client = storageAccount.CreateCloudBlobClient();

@@ -1,5 +1,6 @@
 ﻿using PhotoStorage.WindowsService;
 using PhotoStorage.WindowsService.AzureClient;
+using PhotoStorage.WindowsService.Configuration;
 using System;
 using System.Threading.Tasks;
 
@@ -15,9 +16,12 @@ namespace PhotoStorage.TestRunnerApp
 
         static void TestFileMonitorNewFile()
         {
-            var cloudStorageClientService = new AzureStorageClientService();
+            var configurationService = new ConfigurationService();
+            var appSettings = configurationService.Load();
 
-            using (var fileMonitor = new FileMonitor(@"c:\tmp", cloudStorageClientService))
+            var cloudStorageClientService = new AzureStorageClientService(appSettings);
+
+            using (var fileMonitor = new FileMonitor(appSettings.MonitorPath, cloudStorageClientService))
             {
                 for (; ; )
                 {
