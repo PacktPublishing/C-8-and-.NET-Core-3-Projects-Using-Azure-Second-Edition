@@ -11,6 +11,12 @@ namespace PhotoStorage.WindowsService
         private FileMonitor _fileMonitor;
         private AppSettings _appSettings;
 
+        public PhotoService()
+        {
+            ServiceName = "PhotoService";
+            AutoLog = true;
+        }
+
         protected override void OnStart(string[] args)
         {
             var configurationService = new ConfigurationService();

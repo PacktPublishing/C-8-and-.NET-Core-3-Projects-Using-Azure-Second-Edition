@@ -11,6 +11,7 @@ namespace PhotoStorage.WindowsService.Configuration
     {
         public AppSettings Load()
         {
+            
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json");

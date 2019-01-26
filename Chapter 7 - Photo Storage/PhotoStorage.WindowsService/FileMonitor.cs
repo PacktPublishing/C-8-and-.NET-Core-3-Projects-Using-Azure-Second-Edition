@@ -1,6 +1,8 @@
-﻿using PhotoStorage.WindowsService.AzureClient;
+﻿using PhotoStorage.Helpers.FileHelper;
+using PhotoStorage.WindowsService.AzureClient;
 using System;
 using System.IO;
+
 
 namespace PhotoStorage.WindowsService
 {
@@ -19,7 +21,7 @@ namespace PhotoStorage.WindowsService
 
             _fileSystemWatcher.Changed += new FileSystemEventHandler(OnChanged);
             _fileSystemWatcher.Created += new FileSystemEventHandler(OnCreated);            
-            _fileSystemWatcher.Renamed += new RenamedEventHandler(OnRenamed);
+            _fileSystemWatcher.Renamed += new RenamedEventHandler(OnRenamed);            
         }
 
         private async void OnRenamed(object sender, RenamedEventArgs e)
@@ -36,11 +38,15 @@ namespace PhotoStorage.WindowsService
 
         private async void OnCreated(object sender, FileSystemEventArgs e)
         {
+            if (!FileHelper.IsImage(e.Name)) return;
+
             await _cloudStorageClientService.UploadFile(e.FullPath);
         }
 
         private async void OnChanged(object sender, FileSystemEventArgs e)
         {
+            if (!FileHelper.IsImage(e.Name)) return;
+
             await _cloudStorageClientService.UploadFile(e.FullPath);
         }
 
