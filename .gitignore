@@ -2,63 +2,12 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/Chapter 1 - eBookManager/ClassLibrary1/obj
-/Chapter 1 - eBookManager/.vs/eBookManager
-/Chapter 1 - eBookManager/eBookManager/bin/Debug
-/Chapter 4 - TaskBugLogMVC/.vs
-/Chapter 4 - TaskBugLogMVC/BugTracker/bin/Debug/netcoreapp2.0
-/Chapter 4 - TaskBugLogMVC/BugTracker/obj
-/Chapter 1 - eBookManager/eBookManager/obj
-/Chapter 1 - eBookManager/eBookManager/packages
-/Chapter 1 - eBookManager/eBookManager.Controls/bin/Debug
-/Chapter 1 - eBookManager/eBookManager.Controls/obj
-/Chapter 1 - eBookManager/eBookManager.Engine/obj
-/Chapter 1 - eBookManager/eBookManager.Helper/bin/Debug/netcoreapp3.0
-/Chapter 1 - eBookManager/eBookManager.Helper/obj
-/Chapter 1 - eBookManager/packages
-/Chapter 2 - TaskBugLogMVC/.vs/BugTracker/DesignTimeBuild
-/Chapter 2 - TaskBugLogMVC/.vs/BugTracker/v15
-/Chapter 2 - TaskBugLogMVC/.vs/config
-/Chapter 2 - TaskBugLogMVC/BugTracker/bin/Debug/netcoreapp2.0
-/Chapter 2 - TaskBugLogMVC/BugTracker/obj/Debug/netcoreapp2.0
-/Chapter 2 - TaskBugLogMVC/BugTracker/obj
-/Chapter 2 - TaskBugLogMVC/BugTracker.v12.suo
-/Chapter 1 - eBookManager/eBookManager.Engine/bin/Debug/netcoreapp3.0
-/Chapter 1 - eBookManager/eBookManager.Engine/bin/Debug
-/Chapter 3 - SignalR Chat Application/.vs/RealTimeChat/v15
-/Chapter 3 - SignalR Chat Application/RealTimeChat/bin/Debug/netcoreapp2.1
-/Chapter 3 - SignalR Chat Application/RealTimeChat/node_modules/@aspnet/signalr
-/Chapter 3 - SignalR Chat Application/RealTimeChat/obj
-/Chapter 3 - SignalR Chat Application
-/Chapter 4 - WebResearch/.vs
-/Chapter 4 - WebResearch/webresearch/bin/Debug
-/Chapter 4 - WebResearch/webresearch/bower_components
-/Chapter 4 - WebResearch/webresearch/obj
-/Chapter 4 - WebResearch/webresearch/Properties/PublishProfiles
-/Chapter 4 - WebResearch/WebResearch.Test/bin/Debug/netcoreapp2.1
-/Chapter 4 - WebResearch/WebResearch.Test/obj
-/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/.vs
-/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager/obj/Debug
-/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager/bin/Debug/staging/TwitterCampaignManager
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+.vs
+/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager
 /Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager.Funcs/Properties/PublishProfiles
-/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager/TwitterCampaignManager.deployproj
-/Chapter 5 - Twitter Campaign Manager/.vs
-/Chapter 6 - Stock Checker/StockChecker.Api/bin/Debug/netcoreapp2.1
-/Chapter 6 - Stock Checker/.vs
-/Chapter 6 - Stock Checker/StockChecker.Api/obj/Debug/netcoreapp2.1
-/Chapter 6 - Stock Checker/StockChecker.IdentityServer/bin/Debug/netcoreapp2.1
-/Chapter 6 - Stock Checker/StockChecker.IdentityServer/obj
-/Chapter 6 - Stock Checker/StockChecker.UWP/bin
-/Chapter 6 - Stock Checker/StockChecker.UWP/obj
-/Chapter 6 - Stock Checker/StockChecker.Api/obj
-/Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/bin/Debug/netcoreapp2.1
-/Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/obj/Debug/netcoreapp2.1
-/Chapter 6 - Stock Checker/StockChecker.ConsoleClientApp/obj
-/Chapter 6 - Stock Checker/StockChecker.Api/bin/Debug/netcoreapp3.0
-/Chapter 6 - Stock Checker/StockChecker.IdentityServer/bin/Debug/netcoreapp3.0
-/Chapter 7 - Photo Storage/.vs/PhotoStorage
-/Chapter 7 - Photo Storage/PhotoStorage.WindowsService/obj
-/Chapter 7 - Photo Storage/PhotoStorage.WindowsService/bin/Debug/netstandard2.0
-/Chapter 7 - Photo Storage/.vs/config
-/Chapter 7 - Photo Storage/PhotoStorage.TestRunnerApp/bin/Debug/netcoreapp3.0
-/Chapter 7 - Photo Storage/PhotoStorage.TestRunnerApp/obj

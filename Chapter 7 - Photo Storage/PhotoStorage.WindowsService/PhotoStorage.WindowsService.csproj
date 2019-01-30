@@ -25,4 +25,8 @@
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PhotoStorage.FileSystemWrapper\PhotoStorage.FileSystemWrapper.csproj" />
+  </ItemGroup>
+
 </Project>

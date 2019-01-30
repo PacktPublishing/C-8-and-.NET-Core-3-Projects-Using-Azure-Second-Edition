@@ -9,7 +9,7 @@ namespace PhotoStorage.WindowsService
     {
         static void Main(string[] args)
         {            
-            using (var service = new PhotoService())
+            using (var service = new PhotoService(args[0]))
             {
                 ServiceBase.Run(service);
             }            
