@@ -2,12 +2,20 @@
 using System;
 using System.IO;
 using System.IO.Enumeration;
+using System.Linq;
 
-namespace PhotoStorage.FileSystemWrapper
+namespace PhotoStorage.WindowsService.Helpers
 {
-    public class FileUploader
+    public class FileDiscoverer : IFileDiscoverer
     {
-        public void UploadFiles(string directory)
+        private readonly ILogger _logger;
+
+        public FileDiscoverer(ILogger logger)
+        {
+            _logger = logger;
+        }
+
+        public void DiscoverFiles(string directory, Action<string> action)
         {
             var enumerationOptions = new EnumerationOptions()
             {
@@ -24,9 +32,12 @@ namespace PhotoStorage.FileSystemWrapper
                     FileHelper.IsImage(entry.FileName.ToString())
             };
 
+            _logger.Log($"Found {files.Count()} files");
+
             foreach (var file in files)
             {
-
+                _logger.Log($"Uploading {file.FullName}");
+                action.Invoke(file.FullName);
             }
         }
     }

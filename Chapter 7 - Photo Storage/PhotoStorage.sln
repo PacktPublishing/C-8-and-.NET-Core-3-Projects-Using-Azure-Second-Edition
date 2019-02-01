@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoStorage.WindowsService", "PhotoStorage.WindowsService\PhotoStorage.WindowsService.csproj", "{526A0F4C-4D9E-4E89-A5CD-8FFE630E81D8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoStorage.FileSystemWrapper", "PhotoStorage.FileSystemWrapper\PhotoStorage.FileSystemWrapper.csproj", "{C5A17636-2725-43D7-AA39-8F4EFD20C3F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PhotoStorage.UnitTests", "PhotoStorage.UnitTests\PhotoStorage.UnitTests.csproj", "{77E81201-49B0-4067-B7C5-34555401BD29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{526A0F4C-4D9E-4E89-A5CD-8FFE630E81D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{526A0F4C-4D9E-4E89-A5CD-8FFE630E81D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{526A0F4C-4D9E-4E89-A5CD-8FFE630E81D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5A17636-2725-43D7-AA39-8F4EFD20C3F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5A17636-2725-43D7-AA39-8F4EFD20C3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5A17636-2725-43D7-AA39-8F4EFD20C3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5A17636-2725-43D7-AA39-8F4EFD20C3F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E81201-49B0-4067-B7C5-34555401BD29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E81201-49B0-4067-B7C5-34555401BD29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E81201-49B0-4067-B7C5-34555401BD29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E81201-49B0-4067-B7C5-34555401BD29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
