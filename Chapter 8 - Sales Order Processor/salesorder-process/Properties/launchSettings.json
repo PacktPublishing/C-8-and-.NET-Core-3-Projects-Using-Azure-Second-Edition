@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "salesorder-process": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

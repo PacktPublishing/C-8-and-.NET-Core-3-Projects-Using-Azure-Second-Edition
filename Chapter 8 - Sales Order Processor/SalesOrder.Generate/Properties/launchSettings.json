@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SalesOrder.Generate": {
+      "commandName": "Project",
+      "commandLineArgs": "100"
+    }
+  }
+}

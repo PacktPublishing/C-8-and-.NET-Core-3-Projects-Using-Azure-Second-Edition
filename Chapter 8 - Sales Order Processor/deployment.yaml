@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: salesorderservice
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: salesorderservice
+    spec:
+      containers:
+      - name: salesorder-process
+        image: salesorderregistry.azurecr.io/salesorderprocess:v2
+        ports:
+        - containerPort: 80
