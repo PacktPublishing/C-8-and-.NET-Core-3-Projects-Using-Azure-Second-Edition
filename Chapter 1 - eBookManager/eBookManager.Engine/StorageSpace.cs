@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace eBookManager.Engine
 {
+#nullable enable
+
     [Serializable]
     public class StorageSpace
     {

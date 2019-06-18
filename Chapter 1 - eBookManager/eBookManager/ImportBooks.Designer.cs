@@ -538,8 +538,7 @@ namespace eBookManager
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tvFoundBooks);
-            this.Controls.Add(this.btnSelectSourceFolder);
-            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.btnSelectSourceFolder);            
             this.Name = "ImportBooks";
             this.Text = " Import eBooks";
             this.Load += new System.EventHandler(this.ImportBooks_Load);

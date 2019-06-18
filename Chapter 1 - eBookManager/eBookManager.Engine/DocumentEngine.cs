@@ -6,8 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-[module: System.Runtime.CompilerServices.NonNullTypes]
-
 namespace eBookManager.Engine
 {
     public class DocumentEngine
@@ -56,6 +54,8 @@ namespace eBookManager.Engine
                 FileInfo fi = new FileInfo(filePath);
                 fi.Refresh();
                 returnTuple = (fi.CreationTime, fi.LastAccessTime, fi.Name, fi.Extension, fi.Length, false);
+                FileInfo x = null;
+                var y = x.Length;
             }
             catch
             {

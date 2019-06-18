@@ -8,7 +8,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Drawing;
 
-[module: System.Runtime.CompilerServices.NonNullTypes]
+#nullable enable
 
 namespace eBookManager
 {

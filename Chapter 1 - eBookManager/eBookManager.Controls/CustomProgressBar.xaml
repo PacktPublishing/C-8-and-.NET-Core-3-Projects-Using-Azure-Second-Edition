@@ -9,8 +9,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
-    <controls:host
+    
     <controls:RadialProgressBar x:Name="RadialProgressBarControl"
         Value="70" Minimum="0" Maximum="180"
         Thickness="4" Outline="Gray" Foreground="Red">
