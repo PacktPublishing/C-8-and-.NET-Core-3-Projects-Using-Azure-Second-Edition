@@ -24,6 +24,8 @@ namespace eBookManager
             _jsonPath = Path.Combine(Application.StartupPath, "bookData.txt");
 
             spaces = spaces.ReadFromDataStore(_jsonPath);
+
+            this.windowsXamlHost.InitialTypeName = "eBookManager.Controls.CustomProgressBar";
         }
 
         private void Form1_Load(object sender, EventArgs e)

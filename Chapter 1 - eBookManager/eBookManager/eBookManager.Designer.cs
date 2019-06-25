@@ -28,6 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            // Initialise the windowsXamlHost
+            this.windowsXamlHost = new Microsoft.Toolkit.Forms.UI.XamlHost.WindowsXamlHost();
+           
+
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(eBookManager));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -81,6 +85,19 @@
             this.gbBookDetails.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.SuspendLayout();
+
+            // 
+            // windowsXamlHost1
+            // 
+            this.windowsXamlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            this.windowsXamlHost.InitialTypeName = null;
+            this.windowsXamlHost.Location = new System.Drawing.Point(0, 0);
+            this.windowsXamlHost.Name = "windowsXamlHost";
+            this.windowsXamlHost.Size = new System.Drawing.Size(800, 800);
+            this.windowsXamlHost.TabIndex = 0;
+            this.windowsXamlHost.Text = "windowsXamlHost";
+            this.windowsXamlHost.Dock = System.Windows.Forms.DockStyle.Fill;
+
             // 
             // menuStrip1
             // 
@@ -599,6 +616,8 @@
         private System.Windows.Forms.TextBox txtStorageSpaceDescription;
         private System.Windows.Forms.Button btnReadEbook;
         private System.Windows.Forms.ToolTip toolTip1;
+
+        private Microsoft.Toolkit.Forms.UI.XamlHost.WindowsXamlHost windowsXamlHost;
     }
 }
 
