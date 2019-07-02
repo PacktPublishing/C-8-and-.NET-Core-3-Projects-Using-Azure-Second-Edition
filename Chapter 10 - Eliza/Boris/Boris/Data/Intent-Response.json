@@ -1,0 +1,29 @@
+{
+  "Hello": [
+    "Hi there!",
+    "Hello, My name is Boris",
+    "Nice to meet you",
+    "Hello"
+  ],
+  "Family": [
+    "Tell me more about your family",
+    "Do you have any siblings?",
+    "Let's talk about your family some more"
+  ],
+  "Feelings": [
+    "It's important to talk about your feelings",
+    "It's healthy to talk about how you feel",
+    "Please tell me: how are you feeling"
+  ],
+  "Weather": [
+    "How's the weather where you are",
+    "In 1987, the BBC weatherman Michael Fish failed to predict a Hurricane",
+    "The weather is very unpredictable",
+    "What's the forecast for tomorrow?"
+  ],
+  "None": [
+    "I'm afraid I'm not sure what you mean",
+    "That sounds interesting, please tell me more",
+    "Wow - really?"
+  ]
+}

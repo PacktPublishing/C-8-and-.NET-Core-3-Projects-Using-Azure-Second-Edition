@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 using Boris.Bots;
+using Microsoft.Extensions.Hosting;
 
 namespace Boris
 {
@@ -27,8 +28,10 @@ namespace Boris
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        {            
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddHttpContextAccessor();
 
             // Create the credential provider to be used with the Bot Framework Adapter.
             services.AddSingleton<ICredentialProvider, ConfigurationCredentialProvider>();
@@ -37,14 +40,14 @@ namespace Boris
             services.AddSingleton<IBotFrameworkHttpAdapter, BotFrameworkHttpAdapter>();
 
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, EchoBot>();
+            services.AddTransient<IBot, BorisBot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
+            {   
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -56,7 +59,12 @@ namespace Boris
             app.UseStaticFiles();
 
             //app.UseHttpsRedirection();
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseRouting();
+            app.UseCors();
+            app.UseEndpoints(e =>
+                e.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}")
+            );
         }
     }
 }
