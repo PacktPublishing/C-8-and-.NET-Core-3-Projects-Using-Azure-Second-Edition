@@ -58,8 +58,7 @@ namespace Boris
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            //app.UseHttpsRedirection();
-            //app.UseMvc();
+            app.UseHttpsRedirection();            
             app.UseRouting();
             app.UseCors();
             app.UseEndpoints(e =>

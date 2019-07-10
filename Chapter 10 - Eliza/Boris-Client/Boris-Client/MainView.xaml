@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="Boris_Client.MainView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Boris_Client"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:models="using:Boris_Client.Models">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="0" ItemsSource="{Binding ChatHistory}">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessage">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Sender}"/>
+                        <TextBlock Text=":"/>
+                        <TextBlock Text="{Binding Message}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Grid.Row="0" x:Name="SendMsg" Text="{Binding MessageText}"/>
+            <Button Grid.Row="0" Grid.Column="1" 
+                    Command="{Binding SendMessageCommand}" 
+                    CommandParameter="{Binding ElementName=SendMsg, Path=Text, Mode=OneWay}"
+                    Content="Send" />
+        </Grid>
+   
+    </Grid>
+</Page>
