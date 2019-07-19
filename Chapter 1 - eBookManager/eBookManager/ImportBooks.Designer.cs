@@ -526,7 +526,7 @@ namespace eBookManager
             //
             // progressBar
             //
-            //this.progressBar.po
+            this.progressBar.Name = "progressBar";            
 
             // 
             // ImportBooks
