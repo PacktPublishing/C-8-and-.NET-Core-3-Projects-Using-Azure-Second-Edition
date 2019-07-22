@@ -16,10 +16,10 @@
         connection.start();
 
         connection.on('UpdateChat', (user, message) => {
-            updateChat(user, message);
+            updateChatPanel(user, message);
         });
         connection.on('Archived', (message) => {
-            updateChat('system', message);
+            updateChatPanel('system', message);
         });
 
         function enterChat() {
@@ -40,7 +40,7 @@
             connection.invoke('Send','system',user+' joined the chat');
         };
 
-        function updateChat(user, message) {
+        function updateChatPanel(user, message) {
             let chat = '<b>' + user + ':</b> ' + message +
             '<br/>'
             $('#chat').append(chat);

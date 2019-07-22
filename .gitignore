@@ -9,5 +9,6 @@ bin
 obj
 packages
 .vs
-/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager
-/Chapter 5 - Twitter Campaign Manager/TwitterCampaignManager/TwitterCampaignManager.Funcs/Properties/PublishProfiles
+PublishProfiles/
+node_modules/
+*.deployproj
