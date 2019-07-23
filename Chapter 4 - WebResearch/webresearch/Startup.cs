@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Microsoft.EntityFrameworkCore;
 using WebResearch.Models;
+using Microsoft.Extensions.Hosting;
 
 namespace WebResearch
 {
@@ -24,32 +25,47 @@ namespace WebResearch
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+            });
+
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             string connection = Configuration.GetConnectionString("LocalDBConnection");
             services.AddDbContext<ResearchContext>(options => options.UseSqlServer(connection));
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();                
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseCookiePolicy();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Research}/{action=Index}/{id?}");
+                    pattern: "{controller=Research}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
