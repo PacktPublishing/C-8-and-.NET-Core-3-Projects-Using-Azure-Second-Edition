@@ -1,6 +1,4 @@
-﻿using eBookManager.Controls;
-
-namespace eBookManager
+﻿namespace eBookManager
 {
     partial class ImportBooks
     {
@@ -33,7 +31,7 @@ namespace eBookManager
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportBooks));
             this.btnSelectSourceFolder = new System.Windows.Forms.Button();
-            this.tvFoundBooks = new System.Windows.Forms.TreeView();
+            //this.tvFoundBooks = new System.Windows.Forms.TreeView();
             this.tvImages = new System.Windows.Forms.ImageList(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -75,9 +73,7 @@ namespace eBookManager
             this.txtNewStorageSpaceName = new System.Windows.Forms.TextBox();
             this.dlVirtualStorageSpaces = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lblEbookCount = new System.Windows.Forms.Label();
-
-            this.progressBar = new CustomProgressBar();
+            this.lblEbookCount = new System.Windows.Forms.Label();            
 
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -96,12 +92,12 @@ namespace eBookManager
             // 
             // tvFoundBooks
             // 
-            this.tvFoundBooks.Location = new System.Drawing.Point(12, 41);
-            this.tvFoundBooks.Name = "tvFoundBooks";
-            this.tvFoundBooks.Size = new System.Drawing.Size(513, 246);
-            this.tvFoundBooks.TabIndex = 8;
-            this.tvFoundBooks.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFoundBooks_AfterSelect);
-            // 
+            //this.tvFoundBooks.Location = new System.Drawing.Point(12, 41);
+            //this.tvFoundBooks.Name = "tvFoundBooks";
+            //this.tvFoundBooks.Size = new System.Drawing.Size(513, 246);
+            //this.tvFoundBooks.TabIndex = 8;
+            //this.tvFoundBooks.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvFoundBooks_AfterSelect);
+            //// 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -523,10 +519,6 @@ namespace eBookManager
             this.lblEbookCount.Size = new System.Drawing.Size(76, 13);
             this.lblEbookCount.TabIndex = 7;
             this.lblEbookCount.Text = "lbleBookCount";
-            //
-            // progressBar
-            //
-            this.progressBar.Name = "progressBar";            
 
             // 
             // ImportBooks
@@ -537,11 +529,12 @@ namespace eBookManager
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.tvFoundBooks);
+            //this.Controls.Add(this.tvFoundBooks);
             this.Controls.Add(this.btnSelectSourceFolder);            
             this.Name = "ImportBooks";
             this.Text = " Import eBooks";
             this.Load += new System.EventHandler(this.ImportBooks_Load);
+            //this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ImportBooks_Layout);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -555,7 +548,7 @@ namespace eBookManager
         #endregion
 
         private System.Windows.Forms.Button btnSelectSourceFolder;
-        private System.Windows.Forms.TreeView tvFoundBooks;
+        //private System.Windows.Forms.TreeView tvFoundBooks;
         private System.Windows.Forms.ImageList tvImages;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -597,7 +590,6 @@ namespace eBookManager
         private System.Windows.Forms.TextBox txtStorageSpaceDescription;
         private System.Windows.Forms.Label lblStorageSpaceDescription;
         private System.Windows.Forms.MaskedTextBox txtPrice;
-        private System.Windows.Forms.Label lblEbookCount;
-        private CustomProgressBar progressBar;
+        private System.Windows.Forms.Label lblEbookCount;        
     }
 }

@@ -54,8 +54,6 @@ namespace eBookManager.Engine
                 FileInfo fi = new FileInfo(filePath);
                 fi.Refresh();
                 returnTuple = (fi.CreationTime, fi.LastAccessTime, fi.Name, fi.Extension, fi.Length, false);
-                FileInfo x = null;
-                var y = x.Length;
             }
             catch
             {

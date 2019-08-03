@@ -24,9 +24,9 @@ namespace eBookManager
             _jsonPath = Path.Combine(Application.StartupPath, "bookData.txt");
 
             spaces = spaces.ReadFromDataStore(_jsonPath);
-
-            this.windowsXamlHost.InitialTypeName = "eBookManager.Controls.CustomProgressBar";
+            
         }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -57,6 +57,7 @@ namespace eBookManager
 
             PopulateStorageSpaceList();
         }
+
 
         private void PopulateStorageSpaceList()
         {
@@ -119,7 +120,7 @@ namespace eBookManager
             ImportBooks import = new ImportBooks();
             import.ShowDialog();
             spaces = spaces.ReadFromDataStore(_jsonPath);
-            PopulateStorageSpaceList();
+            PopulateStorageSpaceList();         
         }
 
         private void lstStorageSpaces_MouseClick(object sender, MouseEventArgs e)

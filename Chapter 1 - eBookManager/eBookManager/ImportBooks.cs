@@ -1,13 +1,18 @@
 ﻿using eBookManager.Engine;
+using Microsoft.Toolkit.Forms.UI.XamlHost;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Windows.UI.Xaml.Markup;
 using static eBookManager.Helper.ExtensionMethods;
 using static System.Math;
-using eBookManager.Controls;
+
+#nullable enable
 
 namespace eBookManager
 {
@@ -18,15 +23,49 @@ namespace eBookManager
         private enum StorageSpaceSelection { New = -9999, NoSelection = -1 }
 
         // C#7 (actually C# 6) - Expression-Bodied Property.
-        private HashSet<string> AllowedExtensions => new HashSet<string>(StringComparer.InvariantCultureIgnoreCase) { ".doc", ".docx", ".pdf", ".epub" };
+        private HashSet<string> AllowedExtensions => new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
+        { ".doc", ".docx", ".pdf", ".epub", ".lit" };
                 
-        private enum Extention { doc = 0, docx = 1, pdf = 2, epub = 3 }
+        private enum Extention { doc = 0, docx = 1, pdf = 2, epub = 3, lit = 4 }               
+        private Windows.UI.Xaml.Controls.TreeView? _tvFoundBooks = null;
+
+        public ObservableCollection<Models.Item> DataSource { get; set; }
 
         public ImportBooks()
         {
             InitializeComponent();
             _jsonPath = Path.Combine(Application.StartupPath, "bookData.txt");
             spaces = spaces.ReadFromDataStore(_jsonPath);
+
+            var windowsXamlHostTreeView = new WindowsXamlHost();
+            windowsXamlHostTreeView.InitialTypeName = "Windows.UI.Xaml.Controls.TreeView";
+            windowsXamlHostTreeView.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            windowsXamlHostTreeView.Location = new System.Drawing.Point(12, 60);
+            windowsXamlHostTreeView.Name = "tvFoundBooks";
+            windowsXamlHostTreeView.Size = new System.Drawing.Size(513, 350);
+            windowsXamlHostTreeView.TabIndex = 8;
+            windowsXamlHostTreeView.Dock = System.Windows.Forms.DockStyle.None;
+            windowsXamlHostTreeView.ChildChanged += windowsXamlHostTreeView_ChildChanged;            
+
+            this.Controls.Add(windowsXamlHostTreeView);
+
+        }
+
+        private void windowsXamlHostTreeView_ChildChanged(object? sender, EventArgs e)
+        {
+            if (sender == null) return;
+
+            var host = (WindowsXamlHost)sender;
+            _tvFoundBooks = (Windows.UI.Xaml.Controls.TreeView)host.Child;
+            _tvFoundBooks.ItemInvoked += _tvFoundBooks_ItemInvoked;
+            _tvFoundBooks.ItemsSource = DataSource;
+
+            // https://stackoverflow.com/questions/57388908/binding-to-a-treeview-programatically-not-working-in-uwp
+            const string Xaml = "<DataTemplate xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\"><TreeViewItem ItemsSource=\"{Binding Children}\" Content=\"{Binding Name}\"/></DataTemplate>";
+            var xaml = XamlReader.Load(Xaml);
+            _tvFoundBooks.ItemTemplate = xaml as Windows.UI.Xaml.DataTemplate;
+
+
         }
 
         private void btnSelectSourceFolder_Click(object sender, EventArgs e)
@@ -39,19 +78,7 @@ namespace eBookManager
                 DialogResult dlgResult = fbd.ShowDialog();
                 if (dlgResult == DialogResult.OK)
                 {
-                    tvFoundBooks.Nodes.Clear();
-                    tvFoundBooks.ImageList = tvImages;
-
-                    string path = fbd.SelectedPath;
-                    DirectoryInfo di = new DirectoryInfo(path);
-                    TreeNode root = new TreeNode(di.Name);
-                    root.ImageIndex = 4;
-                    root.SelectedImageIndex = 5;
-                    tvFoundBooks.Nodes.Add(root);
-                    PopulateBookList(di.FullName, root);
-                    tvFoundBooks.Sort();
-
-                    root.Expand();
+                    UpdateBookList(fbd.SelectedPath);
                 }
             }
             catch (Exception ex)
@@ -59,45 +86,64 @@ namespace eBookManager
                 MessageBox.Show(ex.Message);
             }
         }
-        
-        public void PopulateBookList(string paramDir, TreeNode paramNode)
+
+        private void UpdateBookList(string path)
+        {            
+            DirectoryInfo di = new DirectoryInfo(path);
+            var bookList = new List<Models.Item>();
+            var rootItem = new Models.Item()
+            {
+                Name = di.Name
+            };
+
+            rootItem.ItemType = Models.ItemType.Folder;
+
+            PopulateBookList(di.FullName, rootItem);
+            bookList.Add(rootItem);
+
+            DataSource = new ObservableCollection<Models.Item>(bookList);
+            _tvFoundBooks.ItemsSource = DataSource.OrderBy(a => a.Name);
+        }
+
+        public void PopulateBookList(string paramDir, Models.Item rootItem)
         {
+            if (rootItem == null)
+                throw new ArgumentNullException();
+
             DirectoryInfo dir = new DirectoryInfo(paramDir);
             foreach (DirectoryInfo dirInfo in dir.GetDirectories())
             {
-                TreeNode node = new TreeNode(dirInfo.Name);
-                node.ImageIndex = 4;
-                node.SelectedImageIndex = 5;
+                var item = new Models.Item();
+                item.Name = dirInfo.Name;
+                item.ItemType = Models.ItemType.Folder;
 
-                if (paramNode != null)
-                    paramNode.Nodes.Add(node);
-                else
-                    tvFoundBooks.Nodes.Add(node);
-                PopulateBookList(dirInfo.FullName, node);
+                rootItem.Children.Add(item);
+                
+                PopulateBookList(dirInfo.FullName, item);
             }
             foreach (FileInfo fleInfo in dir.GetFiles().Where(x => AllowedExtensions.Contains(x.Extension)).ToList())
             {
-                TreeNode node = new TreeNode(fleInfo.Name);
-                node.Tag = fleInfo.FullName;
-                int iconIndex = Enum.Parse(typeof(Extention), fleInfo.Extension.TrimStart('.'), true).GetHashCode();
+                var item = new Models.Item();
+                item.Name = fleInfo.Name;
 
-                node.ImageIndex = iconIndex;
-                node.SelectedImageIndex = iconIndex;
-                if (paramNode != null)
-                    paramNode.Nodes.Add(node);
-                else
-                    tvFoundBooks.Nodes.Add(node);
+                item.FullName = fleInfo.FullName;
+                item.ItemType = (Models.ItemType)Enum.Parse(typeof(Extention), fleInfo.Extension.TrimStart('.'), true);
+
+                rootItem.Children.Add(item);
             }
+
         }
-        
-        private void tvFoundBooks_AfterSelect(object sender, TreeViewEventArgs e)
+
+        private void _tvFoundBooks_ItemInvoked(Windows.UI.Xaml.Controls.TreeView sender, Windows.UI.Xaml.Controls.TreeViewItemInvokedEventArgs args)
         {
+            var selectedItem = (Models.Item)args.InvokedItem;
+
             DocumentEngine engine = new DocumentEngine();
-            string path = e.Node.Tag?.ToString() ?? "";
+            string path = selectedItem.FullName.ToString();
 
             if (File.Exists(path))
             {
-                var (dateCreated, dateLastAccessed, fileName, fileExtention, fileLength, hasError) = engine.GetFileProperties(e.Node.Tag.ToString());
+                var (dateCreated, dateLastAccessed, fileName, fileExtention, fileLength, hasError) = engine.GetFileProperties(selectedItem.FullName.ToString());
 
                 if (!hasError)
                 {
@@ -105,7 +151,7 @@ namespace eBookManager
                     txtExtension.Text = fileExtention;
                     dtCreated.Value = dateCreated;
                     dtLastAccessed.Value = dateLastAccessed;
-                    txtFilePath.Text = e.Node.Tag.ToString();
+                    txtFilePath.Text = selectedItem.FullName.ToString();
                     txtFileSize.Text = $"{Round(fileLength.ToMegabytes(), 2).ToString()} MB";
                 }
             }
@@ -114,6 +160,7 @@ namespace eBookManager
         private void ImportBooks_Load(object sender, EventArgs e)
         {
             // tvImages                        
+            /*
             this.tvImages.Images.Add("docx16.png", Image.FromFile("img/docx16.png"));
             this.tvImages.Images.Add("docxx16.png", Image.FromFile("img/docxx16.png"));
             this.tvImages.Images.Add("pdfx16.png", Image.FromFile("img/pdfx16.png"));
@@ -121,7 +168,7 @@ namespace eBookManager
             this.tvImages.Images.Add("folder-close-x16.png", Image.FromFile("img/folder-close-x16.png"));
             this.tvImages.Images.Add("folder_exp_x16.png", Image.FromFile("img/folder_exp_x16.png"));
             this.tvImages.TransparentColor = System.Drawing.Color.Transparent;
-
+            */
             // btnAddeBookToStorageSpace
             this.btnAddeBookToStorageSpace.Image = Image.FromFile("img/add_ebook_to_storage_space.png");
             
