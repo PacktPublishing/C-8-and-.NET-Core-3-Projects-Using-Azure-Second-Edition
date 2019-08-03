@@ -16,6 +16,7 @@ namespace eBookManager
     {
         private string _jsonPath;
         private List<StorageSpace> spaces;
+        private Microsoft.Toolkit.Forms.UI.XamlHost.WindowsXamlHost _windowsXamlHost;
 
         public eBookManager()
         {
@@ -24,8 +25,23 @@ namespace eBookManager
             _jsonPath = Path.Combine(Application.StartupPath, "bookData.txt");
 
             spaces = spaces.ReadFromDataStore(_jsonPath);
+            /*
+            _windowsXamlHost = new Microsoft.Toolkit.Forms.UI.XamlHost.WindowsXamlHost();
+            _windowsXamlHost.InitialTypeName = "Windows.UI.Xaml.Controls.ProgressRing";
+            
+            _windowsXamlHost.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowOnly;
+            _windowsXamlHost.Location = new System.Drawing.Point(0, 0);
+            _windowsXamlHost.Name = "windowsXamlHost";
+            _windowsXamlHost.Size = new System.Drawing.Size(800, 800);
+            _windowsXamlHost.TabIndex = 0;
+            _windowsXamlHost.Text = "windowsXamlHost";
+            _windowsXamlHost.Dock = System.Windows.Forms.DockStyle.None;
 
-            this.windowsXamlHost.InitialTypeName = "eBookManager.Controls.CustomProgressBar";
+            //Adding the WindowsXamlHost to the Form
+            this.Controls.Add(_windowsXamlHost);                        
+
+            this.ResumeLayout(false);
+            */
         }
 
         private void Form1_Load(object sender, EventArgs e)

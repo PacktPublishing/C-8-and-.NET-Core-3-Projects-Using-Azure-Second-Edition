@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows.Forms;
 using static eBookManager.Helper.ExtensionMethods;
 using static System.Math;
-using eBookManager.Controls;
 
 namespace eBookManager
 {

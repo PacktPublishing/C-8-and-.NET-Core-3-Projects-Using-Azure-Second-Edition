@@ -1,6 +1,4 @@
-﻿using eBookManager.Controls;
-
-namespace eBookManager
+﻿namespace eBookManager
 {
     partial class ImportBooks
     {
@@ -75,9 +73,7 @@ namespace eBookManager
             this.txtNewStorageSpaceName = new System.Windows.Forms.TextBox();
             this.dlVirtualStorageSpaces = new System.Windows.Forms.ComboBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lblEbookCount = new System.Windows.Forms.Label();
-
-            this.progressBar = new CustomProgressBar();
+            this.lblEbookCount = new System.Windows.Forms.Label();            
 
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -523,10 +519,6 @@ namespace eBookManager
             this.lblEbookCount.Size = new System.Drawing.Size(76, 13);
             this.lblEbookCount.TabIndex = 7;
             this.lblEbookCount.Text = "lbleBookCount";
-            //
-            // progressBar
-            //
-            this.progressBar.Name = "progressBar";            
 
             // 
             // ImportBooks
@@ -597,7 +589,6 @@ namespace eBookManager
         private System.Windows.Forms.TextBox txtStorageSpaceDescription;
         private System.Windows.Forms.Label lblStorageSpaceDescription;
         private System.Windows.Forms.MaskedTextBox txtPrice;
-        private System.Windows.Forms.Label lblEbookCount;
-        private CustomProgressBar progressBar;
+        private System.Windows.Forms.Label lblEbookCount;        
     }
 }
