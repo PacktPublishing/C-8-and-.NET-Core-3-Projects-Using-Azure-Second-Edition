@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.89
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eBookManager", "eBookManager\eBookManager.csproj", "{36FEDD28-2B83-453B-A6CB-98CD533BC630}"
 EndProject
@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		about.txt = about.txt
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eBookManager.Controls", "eBookManager.Controls\eBookManager.Controls.csproj", "{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,22 +74,6 @@ Global
 		{F0B5225A-8B8B-446E-AC56-3D9F65398DAE}.Release|x64.Build.0 = Release|Any CPU
 		{F0B5225A-8B8B-446E-AC56-3D9F65398DAE}.Release|x86.ActiveCfg = Release|Any CPU
 		{F0B5225A-8B8B-446E-AC56-3D9F65398DAE}.Release|x86.Build.0 = Release|Any CPU
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|ARM.ActiveCfg = Debug|ARM
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|ARM.Build.0 = Debug|ARM
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|x64.ActiveCfg = Debug|x64
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|x64.Build.0 = Debug|x64
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|x86.ActiveCfg = Debug|x86
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Debug|x86.Build.0 = Debug|x86
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|ARM.ActiveCfg = Release|ARM
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|ARM.Build.0 = Release|ARM
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|x64.ActiveCfg = Release|x64
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|x64.Build.0 = Release|x64
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|x86.ActiveCfg = Release|x86
-		{E3F6DEFF-F3CE-4983-892A-7F1C0A70520E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

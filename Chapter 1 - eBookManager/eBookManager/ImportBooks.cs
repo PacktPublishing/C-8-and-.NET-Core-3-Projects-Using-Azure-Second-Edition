@@ -29,7 +29,7 @@ namespace eBookManager
         private enum Extention { doc = 0, docx = 1, pdf = 2, epub = 3, lit = 4 }               
         private Windows.UI.Xaml.Controls.TreeView? _tvFoundBooks = null;
 
-        public ObservableCollection<Models.Item> DataSource { get; set; }
+        public ObservableCollection<Models.Item> DataSource { get; set; } = new ObservableCollection<Models.Item>();
 
         public ImportBooks()
         {
@@ -102,7 +102,7 @@ namespace eBookManager
             bookList.Add(rootItem);
 
             DataSource = new ObservableCollection<Models.Item>(bookList);
-            _tvFoundBooks.ItemsSource = DataSource.OrderBy(a => a.Name);
+            _tvFoundBooks!.ItemsSource = DataSource.OrderBy(a => a.Name);
         }
 
         public void PopulateBookList(string paramDir, Models.Item rootItem)
@@ -110,12 +110,14 @@ namespace eBookManager
             if (rootItem == null)
                 throw new ArgumentNullException();
 
+            rootItem.FullName = paramDir;
+            rootItem.ItemType = Models.ItemType.Folder;
+
             DirectoryInfo dir = new DirectoryInfo(paramDir);
             foreach (DirectoryInfo dirInfo in dir.GetDirectories())
             {
                 var item = new Models.Item();
-                item.Name = dirInfo.Name;
-                item.ItemType = Models.ItemType.Folder;
+                item.Name = dirInfo.Name;                
 
                 rootItem.Children.Add(item);
                 
@@ -159,16 +161,6 @@ namespace eBookManager
 
         private void ImportBooks_Load(object sender, EventArgs e)
         {
-            // tvImages                        
-            /*
-            this.tvImages.Images.Add("docx16.png", Image.FromFile("img/docx16.png"));
-            this.tvImages.Images.Add("docxx16.png", Image.FromFile("img/docxx16.png"));
-            this.tvImages.Images.Add("pdfx16.png", Image.FromFile("img/pdfx16.png"));
-            this.tvImages.Images.Add("epubx16.png", Image.FromFile("img/epubx16.png"));
-            this.tvImages.Images.Add("folder-close-x16.png", Image.FromFile("img/folder-close-x16.png"));
-            this.tvImages.Images.Add("folder_exp_x16.png", Image.FromFile("img/folder_exp_x16.png"));
-            this.tvImages.TransparentColor = System.Drawing.Color.Transparent;
-            */
             // btnAddeBookToStorageSpace
             this.btnAddeBookToStorageSpace.Image = Image.FromFile("img/add_ebook_to_storage_space.png");
             
@@ -353,6 +345,7 @@ namespace eBookManager
                                                   where s.ID == storageSpaceId
                                                   select s).First();
 
+                    if (existingSpace.BookList == null) return;
                     List<Document> ebooks = existingSpace.BookList;
 
                     int iBooksExist = (ebooks != null) ? (from b in ebooks
@@ -369,39 +362,18 @@ namespace eBookManager
                                                      where $"{b.FileName}".Equals($"{txtFileName.Text.Trim()}")
                                                      select b).First();
 
-                            existingBook.FileName = txtFileName.Text;
-                            existingBook.Extension = txtExtension.Text;
-                            existingBook.LastAccessed = dtLastAccessed.Value;
-                            existingBook.Created = dtCreated.Value;
-                            existingBook.FilePath = txtFilePath.Text;
-                            existingBook.FileSize = txtFileSize.Text;
-                            existingBook.Title = txtTitle.Text;
-                            existingBook.Author = txtAuthor.Text;
-                            existingBook.Publisher = txtPublisher.Text;
-                            existingBook.Price = txtPrice.Text;
-                            existingBook.ISBN = txtISBN.Text;
-                            existingBook.PublishDate = dtDatePublished.Value;
-                            existingBook.Category = txtCategory.Text;
+                            PopulateBook(existingBook, txtFileName.Text, txtExtension.Text, dtLastAccessed.Value,
+                                dtCreated.Value, txtFilePath.Text, txtFileSize.Text, txtTitle.Text, txtAuthor.Text,
+                                txtPublisher.Text, txtPrice.Text, txtISBN.Text, dtDatePublished.Value, txtCategory.Text);
                         }
                     }
                     else
                     {
                         // Insert new book
                         Document newBook = new Document();
-                        newBook.FileName = txtFileName.Text;
-                        newBook.Extension = txtExtension.Text;
-                        newBook.LastAccessed = dtLastAccessed.Value;
-                        newBook.Created = dtCreated.Value;
-                        newBook.FilePath = txtFilePath.Text;
-                        newBook.FileSize = txtFileSize.Text;
-                        newBook.Title = txtTitle.Text;
-                        newBook.Author = txtAuthor.Text;
-                        newBook.Publisher = txtPublisher.Text;
-                        newBook.Price = txtPrice.Text;
-                        newBook.ISBN = txtISBN.Text;
-                        newBook.PublishDate = dtDatePublished.Value;
-                        newBook.Category = txtCategory.Text;
-                        //newBook.Classification = dlClassification.SelectedText.ToString();
+                        PopulateBook(newBook, txtFileName.Text, txtExtension.Text, dtLastAccessed.Value,
+                            dtCreated.Value, txtFilePath.Text, txtFileSize.Text, txtTitle.Text, txtAuthor.Text,
+                            txtPublisher.Text, txtPrice.Text, txtISBN.Text, dtDatePublished.Value, txtCategory.Text);
 
                         if (ebooks == null)
                             ebooks = new List<Document>();
@@ -418,6 +390,25 @@ namespace eBookManager
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+            static void PopulateBook(Document document, string fileName, string extension, DateTime lastAccessed, 
+                DateTime created, string filePath, string fileSize, string title, string author, string publisher, 
+                string price, string ISBN, DateTime datePublished, string category)
+            {
+                document.FileName = fileName;
+                document.Extension = extension;
+                document.LastAccessed = lastAccessed;
+                document.Created = created;
+                document.FilePath = filePath;
+                document.FileSize = fileSize;
+                document.Title = title;
+                document.Author = author;
+                document.Publisher = publisher;
+                document.Price = price;
+                document.ISBN = ISBN;
+                document.PublishDate = datePublished;
+                document.Category = category;
             }
         }
 

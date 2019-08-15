@@ -91,13 +91,11 @@ namespace eBookManager.Helper
         {
             JsonSerializer json = new JsonSerializer();
             json.Formatting = Formatting.Indented;
-            using (StreamWriter sw = new StreamWriter(storagePath, appendToExistingFile))
-            {
-                using (JsonWriter writer = new JsonTextWriter(sw))
-                {
-                    json.Serialize(writer, value);
-                }
-            }
+
+            using StreamWriter sw = new StreamWriter(storagePath, appendToExistingFile);
+            using JsonWriter writer = new JsonTextWriter(sw);
+                
+            json.Serialize(writer, value);
         }
 
         public static List<StorageSpace> ReadFromDataStore(this List<StorageSpace> value, string storagePath)
@@ -108,17 +106,14 @@ namespace eBookManager.Helper
                 var newFile = File.Create(storagePath);
                 newFile.Close();
             }
-            using (StreamReader sr = new StreamReader(storagePath))
-            {
-                using (JsonReader reader = new JsonTextReader(sr))
-                {
-                    var retVal = json.Deserialize<List<StorageSpace>>(reader);
-                    if (retVal is null)
-                        retVal = new List<StorageSpace>();
+            using StreamReader sr = new StreamReader(storagePath);
+            using JsonReader reader = new JsonTextReader(sr);
 
-                    return retVal;
-                }
-            }
+            var retVal = json.Deserialize<List<StorageSpace>>(reader);
+            if (retVal is null)
+                retVal = new List<StorageSpace>();
+
+            return retVal;
         }
     }
 }

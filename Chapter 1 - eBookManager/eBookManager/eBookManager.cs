@@ -98,13 +98,13 @@ namespace eBookManager
 
         private void ClearSelectedBook()
         {
-            foreach (Control ctrl in gbBookDetails.Controls)
+            foreach (Control? ctrl in gbBookDetails.Controls)
             {
                 if (ctrl is TextBox)
                     ctrl.Text = "";
             }
 
-            foreach (Control ctrl in gbFileDetails.Controls)
+            foreach (Control? ctrl in gbFileDetails.Controls)
             {
                 if (ctrl is TextBox)
                     ctrl.Text = "";
