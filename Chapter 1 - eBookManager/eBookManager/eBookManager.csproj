@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <LangVersion>8.0</LangVersion>
-    <NullableReferenceTypes>true</NullableReferenceTypes>
+    <Nullable>enable</Nullable>
     
     <AssetTargetFallback>uap10.0.18362</AssetTargetFallback>                            
     <UseWindowsForms>true</UseWindowsForms>

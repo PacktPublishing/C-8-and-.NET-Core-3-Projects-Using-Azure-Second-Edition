@@ -8,7 +8,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Drawing;
 
-#nullable enable
+
 
 namespace eBookManager
 {
