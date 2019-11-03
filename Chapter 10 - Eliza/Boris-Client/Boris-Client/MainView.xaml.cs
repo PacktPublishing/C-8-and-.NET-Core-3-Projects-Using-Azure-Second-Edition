@@ -31,6 +31,11 @@ namespace Boris_Client
             DataContext = new MainViewModel();    
             
         }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            await ((MainViewModel)DataContext).Initialise();
+        }
     }
 
 }

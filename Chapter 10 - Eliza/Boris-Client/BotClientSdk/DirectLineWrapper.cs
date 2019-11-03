@@ -10,21 +10,32 @@ namespace BotClientSdk
     {
         private string? _conversationId = null;
         private readonly DirectLineClient _client;
-        private string? _watermark = null;
+        Action<List<KeyValuePair<string, string>>> _updateMessages;
 
-        public DirectLineWrapper()
+        public DirectLineWrapper(Action<List<KeyValuePair<string, string>>> updateMessages)
         {
-            _client = new DirectLineClient("X14UCaCQoP8.QNPYS_u2Z7LhobFce9mA2ZWt47n7VzEuTjTGWHO-oL0");
+            _client = new DirectLineClient("vXE4N_NUkjc.gSQr8VeUIFRmEfDg8cczc-TEkqtOlhXOHzxWek8-Qso");
+            _updateMessages = updateMessages;
         }
 
-        public async Task<List<KeyValuePair<string, string>>> SendMessage(string message)
+        public async Task StartConversation()
         {
             if (string.IsNullOrWhiteSpace(_conversationId))
             {
                 var conversation = await _client.Conversations.StartConversationAsync();
-                _conversationId = conversation.ConversationId;
+                _conversationId = conversation.ConversationId;                
+
+                new System.Threading.Thread(async () => await ReadBotMessagesAsync(_client, conversation.ConversationId)).Start();
             }
-            
+        }
+
+        public async Task SendMessage(string message)
+        {            
+            if (string.IsNullOrWhiteSpace(_conversationId))
+            {
+                throw new Exception("No active conversation");
+            }
+
             Activity userMessage = new Activity
             {
                 From = new ChannelAccount("User"),
@@ -32,33 +43,39 @@ namespace BotClientSdk
                 Type = ActivityTypes.Message
             };
 
-            var resourceResponse = await _client.Conversations.PostActivityAsync(_conversationId, userMessage);
-            return await ReadBotMessagesAsync(_client, _conversationId);
+            var resourceResponse = await _client.Conversations.PostActivityAsync(_conversationId, userMessage);            
         }
 
+        private object _lock = new object();
 
         // https://github.com/microsoft/BotBuilder-Samples/blob/v3-sdk-samples/CSharp
-        private async Task<List<KeyValuePair<string, string>>> ReadBotMessagesAsync(DirectLineClient client, string conversationId)
+        private async Task ReadBotMessagesAsync(DirectLineClient client, string conversationId)
         {
-            
+            string watermark = string.Empty;
             var messages = new List<KeyValuePair<string, string>>();
-
+            
             while (true)
             {
-                var activitySet = await client.Conversations.GetActivitiesAsync(conversationId, _watermark);
-                if (activitySet == null) return new List<KeyValuePair<string, string>>();
+                var activitySet = await client.Conversations.GetActivitiesAsync(conversationId, watermark);
 
-                _watermark = activitySet.Watermark;
-
-                var activities = activitySet.Activities.Where(a => a.Conversation.Id == conversationId);
-
-                foreach (Activity activity in activities)
+                lock (_lock)
                 {
-                    messages.Add(new KeyValuePair<string, string>(activity.From.Id, activity.Text));
-                }
+                    watermark = activitySet.Watermark;
 
-                return messages;
+                    var activities = from x in activitySet.Activities
+                                     select x;
+
+                    messages.Clear();
+                    foreach (Activity activity in activities)
+                    {
+                        messages.Add(new KeyValuePair<string, string>(activity.From.Id, activity.Text));
+                    }
+
+                    _updateMessages(messages);
+                }
+                await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(false);                
             }
         }
+
     }
 }
