@@ -8,7 +8,7 @@ namespace StockChecker.UWP.Interfaces
 {
     public interface IHttpStockClientHelper
     {
-        Task<int> GetQuantityAsync(int productId);
+        Task<int?> GetQuantityAsync(int productId);
         Task UpdateQuantityAsync(int productId, int newQuantity);
         Task<bool> Login(string username, string password);
         Task<string> GetUserRole();

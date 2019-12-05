@@ -105,7 +105,9 @@ namespace StockChecker.UWP.ViewModels
 
         private async Task RefreshQuantity()
         {
-            Quantity = await _httpClientHelper.GetQuantityAsync(ProductId);
+            int? newQuantity = await _httpClientHelper.GetQuantityAsync(ProductId);
+            if (!newQuantity.HasValue) return;
+            Quantity = newQuantity.Value;
             _originalQuantity = Quantity;
             UpdateQuantity.RaiseCanExecuteChanged();
             DecreaseQuantity.RaiseCanExecuteChanged();

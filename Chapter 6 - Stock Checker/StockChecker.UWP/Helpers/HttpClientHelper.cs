@@ -24,14 +24,18 @@ namespace StockChecker.UWP.Helpers
             _httpClient.BaseAddress = baseAddress;
         }
 
-        public async Task<int> GetQuantityAsync(int productId)
+        public async Task<int?> GetQuantityAsync(int productId)
         {
             string path = $"api/stock/{productId}";
 
-            _httpClient.SetBearerToken(_accessToken);
-            string quantityString = await _httpClient.GetStringAsync(path);
-
-            return int.Parse(quantityString);
+            _httpClient.SetBearerToken(_accessToken);            
+            var response = await _httpClient.GetAsync(path);
+            if (response.IsSuccessStatusCode)
+            {
+                string quantityString = await response.Content.ReadAsStringAsync();
+                return int.Parse(quantityString);
+            }
+            return null;
         }
 
         public async Task UpdateQuantityAsync(int productId, int newQuantity)
