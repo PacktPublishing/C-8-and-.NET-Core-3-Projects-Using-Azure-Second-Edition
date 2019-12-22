@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ico\importBooks.ico" />
+    <None Remove="ico\mainForm.ico" />
+    <None Remove="img\add_ebook_to_storage_space.png" />
+    <None Remove="img\add_new_storage_space.png" />
+    <None Remove="img\docx16.png" />
+    <None Remove="img\docxx16.png" />
+    <None Remove="img\eBook.png" />
+    <None Remove="img\epubx16.png" />
+    <None Remove="img\folder-close-x16.png" />
+    <None Remove="img\folder_exp_x16.png" />
+    <None Remove="img\image sources.txt" />
+    <None Remove="img\no_eBook.png" />
+    <None Remove="img\pdfx16.png" />
+    <None Remove="img\ReadEbook.png" />
+    <None Remove="img\storage_space_cloud.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ico\importBooks.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ico\mainForm.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\add_ebook_to_storage_space.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\add_new_storage_space.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\docx16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\docxx16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\eBook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\epubx16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\folder-close-x16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\folder_exp_x16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\image sources.txt" />
+    <Content Include="img\no_eBook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\pdfx16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\ReadEbook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\storage_space_cloud.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eBookManager.Engine\eBookManager.Engine.csproj" />
+    <ProjectReference Include="..\eBookManager.Helper\eBookManager.Helper.csproj" />
+  </ItemGroup>
+
+</Project>
