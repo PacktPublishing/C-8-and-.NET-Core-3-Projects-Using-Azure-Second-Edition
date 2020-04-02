@@ -17,6 +17,6 @@ namespace RealTimeChat
                 DateTime.Now.ToString("yyyy_MM_dd_HH_mm") + ".txt";
             System.IO.File.WriteAllText($@"{path}\{fileName}", messages);
             return Clients.All.SendAsync("Archived", $"Chat archived by {archivedBy}"); 
-        }
+        }        
     }
 }

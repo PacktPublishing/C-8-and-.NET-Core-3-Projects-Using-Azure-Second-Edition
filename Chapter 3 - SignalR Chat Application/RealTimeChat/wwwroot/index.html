@@ -11,18 +11,19 @@
 
         var connection = new signalR.HubConnectionBuilder()
             .withUrl('/chat')
+            .configureLogging(signalR.LogLevel.Debug)
             .build();
 
         connection.start();
 
-        connection.on('UpdateChat', (user, message) => {
+        connection.on('UpdateChat', (user, message) => {            
             updateChatPanel(user, message);
         });
         connection.on('Archived', (message) => {
             updateChatPanel('system', message);
         });
 
-        function enterChat() {
+        function enterChat() {            
             $('#user').text($('#username').val());
             sendWelcomeMessage($('#username').val());
             $('#namePanel').hide();
