@@ -12,8 +12,9 @@ namespace eBookManager
 {
     public partial class ImportBooks : Form
     {
-        private string _jsonPath;
+        private readonly string _jsonPath;
         private List<StorageSpace> _spaces;
+
         private enum _storageSpaceSelection
         {
             New = -9999, NoSelection = -1
@@ -23,7 +24,6 @@ namespace eBookManager
 
         private HashSet<string> AllowedExtensions => new HashSet<string>(StringComparer.InvariantCultureIgnoreCase)
         { ".doc", ".docx", ".pdf", ".epub", ".lit" };
-
 
         public ImportBooks()
         {
@@ -36,9 +36,11 @@ namespace eBookManager
             DirectoryInfo dir = new DirectoryInfo(paramDir);
             foreach (DirectoryInfo dirInfo in dir.GetDirectories())
             {
-                TreeNode node = new TreeNode(dirInfo.Name);
-                node.ImageIndex = 4;
-                node.SelectedImageIndex = 5;
+                TreeNode node = new TreeNode(dirInfo.Name)
+                {
+                    ImageIndex = 4,
+                    SelectedImageIndex = 5
+                };
                 if (paramNode != null)
                     paramNode.Nodes.Add(node);
                 else
@@ -48,8 +50,10 @@ namespace eBookManager
             foreach (FileInfo fleInfo in dir.GetFiles().Where
             (x => AllowedExtensions.Contains(x.Extension)).ToList())
             {
-                TreeNode node = new TreeNode(fleInfo.Name);
-                node.Tag = fleInfo.FullName;
+                TreeNode node = new TreeNode(fleInfo.Name)
+                {
+                    Tag = fleInfo.FullName
+                };
                 int iconIndex = Enum.Parse(typeof(Extension),
                 fleInfo.Extension.TrimStart('.'), true).GetHashCode();
                 node.ImageIndex = iconIndex;
@@ -67,10 +71,10 @@ namespace eBookManager
             new List<KeyValuePair<int, string>>();
             BindStorageSpaceList((int)_storageSpaceSelection.NoSelection, "Select Storage Space");
 
-            void BindStorageSpaceList(int key, string value) =>            
-                lstSpaces.Add(new KeyValuePair<int, string>(key, value));            
+            void BindStorageSpaceList(int key, string value) =>
+                lstSpaces.Add(new KeyValuePair<int, string>(key, value));
 
-            if (_spaces is null || _spaces.Count() == 0) // Pattern matching
+            if (_spaces is null || _spaces.Count == 0) // Pattern matching
             {
                 BindStorageSpaceList((int)_storageSpaceSelection.New, " <create new> ");
             }
@@ -103,17 +107,21 @@ namespace eBookManager
         {
             try
             {
-                FolderBrowserDialog fbd = new FolderBrowserDialog();
-                fbd.Description = "Select the location of your eBooks and documents";
+                FolderBrowserDialog fbd = new FolderBrowserDialog
+                {
+                    Description = "Select the location of your eBooks and documents"
+                };
                 DialogResult dlgResult = fbd.ShowDialog();
                 if (dlgResult == DialogResult.OK)
                 {
                     tvFoundBooks.Nodes.Clear();
                     string path = fbd.SelectedPath;
                     DirectoryInfo di = new DirectoryInfo(path);
-                    TreeNode root = new TreeNode(di.Name);
-                    root.ImageIndex = 4;
-                    root.SelectedImageIndex = 5;
+                    TreeNode root = new TreeNode(di.Name)
+                    {
+                        ImageIndex = 4,
+                        SelectedImageIndex = 5
+                    };
                     tvFoundBooks.Nodes.Add(root);
                     PopulateBookList(di.FullName, root);
                     tvFoundBooks.Sort();
@@ -137,12 +145,12 @@ namespace eBookManager
                 engine.GetFileProperties(e.Node.Tag.ToString());
                 if (!hasError)
                 {
-                    txtFileName.Text = fileName;                    
+                    txtFileName.Text = fileName;
                     txtExtension.Text = fileExtention;
                     dtCreated.Value = dateCreated;
                     dtLastAccessed.Value = dateLastAccessed;
                     txtFilePath.Text = e.Node.Tag.ToString();
-                    txtFileSize.Text = $"{Round(fileLength.ToMegabytes(), 2).ToString()} MB";                    
+                    txtFileSize.Text = $"{Round(fileLength.ToMegabytes(), 2)} MB";
                 }
             }
         }
@@ -174,10 +182,8 @@ namespace eBookManager
                                                   select c).First();
                     txtStorageSpaceDescription.Text =
                     selectedSpace.Description;
-                    List<Document> eBooks = (selectedSpace.BookList == null)
-                        ? new List<Document> { } 
-                        : selectedSpace.BookList;
-                    lblEbookCount.Text = $"Storage Space contains { eBooks.Count()} {(eBooks.Count() == 1 ? "eBook" : "eBooks")}";
+                    List<Document> eBooks = selectedSpace.BookList ?? new List<Document>();
+                    lblEbookCount.Text = $"Storage Space contains { eBooks.Count} {(eBooks.Count == 1 ? "eBook" : "eBooks")}";
                 }
             }
             else
@@ -193,19 +199,20 @@ namespace eBookManager
                 if (txtNewStorageSpaceName.Text.Length != 0)
                 {
                     string newName = txtNewStorageSpaceName.Text;
-                    bool spaceExists = 
-                        (!_spaces.StorageSpaceExists(newName, out int nextID)) 
-                        ? false 
+                    bool spaceExists =
+                        (!_spaces.StorageSpaceExists(newName, out int nextID))
+                        ? false
                         : throw new Exception("The storage space you are trying to add already exists.");
                     if (!spaceExists)
                     {
-                        StorageSpace newSpace = new StorageSpace();
-                        newSpace.Name = newName;
-                        newSpace.ID = nextID;
-                        newSpace.Description =
-                        txtStorageSpaceDescription.Text;
+                        StorageSpace newSpace = new StorageSpace
+                        {
+                            Name = newName,
+                            ID = nextID,
+                            Description = txtStorageSpaceDescription.Text
+                        };
                         _spaces.Add(newSpace);
-        
+
                         PopulateStorageSpacesList();
                         // Save new Storage Space Name
                         txtNewStorageSpaceName.Clear();
@@ -233,14 +240,15 @@ namespace eBookManager
             {
                 int selectedStorageSpaceID =
                 dlVirtualStorageSpaces.SelectedValue.ToString().ToInt();
-                if ((selectedStorageSpaceID !=
-                (int)_storageSpaceSelection.NoSelection)
-                && (selectedStorageSpaceID !=
-                (int)_storageSpaceSelection.New))
+                if ((selectedStorageSpaceID != (int)_storageSpaceSelection.NoSelection)
+                && (selectedStorageSpaceID != (int)_storageSpaceSelection.New))
                 {
                     await UpdateStorageSpaceBooks(selectedStorageSpaceID);
                 }
-                else throw new Exception("Please select a Storage Space to add your eBook to"); // throw expressions
+                else
+                {
+                    throw new Exception("Please select a Storage Space to add your eBook to"); // throw expressions
+                }
             }
             catch (Exception ex)
             {
@@ -266,7 +274,7 @@ namespace eBookManager
                                                           where $"{b.FileName}".Equals($"{txtFileName.Text.Trim()}")
                                                           select b).Count() : 0;
                     if (iBooksExist > 0)
-                    {                        
+                    {
                         DialogResult dlgResult = MessageBox.Show($"A book with the same name has been found in Storage Space {existingSpace.Name}. Do you want to replace the existing book entry with this one ?",
                             "Duplicate Title", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Warning,
@@ -278,16 +286,13 @@ namespace eBookManager
                                                      select b).First();
                             SetBookFields(existingBook);
                         }
-                    }                    
+                    }
                     else
                     {
                         // Insert new book
                         Document newBook = new Document();
                         SetBookFields(newBook);
-
-                        if (ebooks == null)
-                            ebooks = new List<Document>();
-                        ebooks.Add(newBook);
+                        (ebooks ??= new List<Document>()).Add(newBook);
                         existingSpace.BookList = ebooks;
                     }
                 }
