@@ -11,18 +11,32 @@ This is the code repository for [C# 8 and .NET Core 3 Projects Using Azure - Sec
 
 
 This book covers the following exciting features:
-Understand how to incorporate the Entity Framework Core 3 to build ASP.NET Core MVC applications 
-Create a real-time chat application using Azure’s SignalR service 
-Gain hands-on experience of working with Cosmos DB 
-Develop an Azure Function and interface it with an Azure Logic App 
-Explore user authentication with Identity Server and OAuth2 
-Understand how to use Azure Cognitive Services to add advanced functionalities with minimal code 
-Get to grips with running a .NET Core application with Kubernetes
+* Understand how to incorporate the Entity Framework Core 3 to build ASP.NET Core MVC applications 
+* Create a real-time chat application using Azure’s SignalR service 
+* Gain hands-on experience of working with Cosmos DB 
+* Develop an Azure Function and interface it with an Azure Logic App 
+* Explore user authentication with Identity Server and OAuth2 
+* Understand how to use Azure Cognitive Services to add advanced functionalities with minimal code 
+* Get to grips with running a .NET Core application with Kubernetes
 
 If you feel this book is for you, get your [copy](https://www.amazon.com/dp/178961208X) today!
 
 <a href="https://www.packtpub.com/?utm_source=github&utm_medium=banner&utm_campaign=GitHubBanner"><img src="https://raw.githubusercontent.com/PacktPublishing/GitHub/master/GitHub.png" 
 alt="https://www.packtpub.com/" border="5" /></a>
+
+## Errata
+* Page 139, 140: Step 2 contains the following code:
+```
+connection.on('UpdateChat', (user, message) => {
+  updateChat(user, message);
+});
+connection.on('Archived', (message) => {
+  updateChat('system', message);
+});
+```
+On page 140, step 6 the book defines an "updateChatPanel" method. Either the code on page 139 needs to be changed to
+reference "updateChatPanel" instead of "updateChat" or the function for page 140, step 6 needs to be "updateChat".
+* Page 141: The last line of the archiveChat function on the top of the page is missing a parameter between 'ArchiveChat' and archivePath. The parameter 'archivedBy' needs to be added in order for archiving chat to work.
 
 ## Instructions and Navigations
 All of the code is organized into folders. For example, Chapter02.
