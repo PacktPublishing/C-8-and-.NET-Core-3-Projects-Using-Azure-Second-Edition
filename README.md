@@ -1,3 +1,8 @@
+## $5 Tech Unlocked 2021!
+[Buy and download this Book for only $5 on PacktPub.com](https://www.packtpub.com/product/c-8-and-net-core-3-projects-using-azure-second-edition/9781789612080)
+-----
+*If you have read this book, please leave a review on [Amazon.com](https://www.amazon.com/gp/product/178961208X).     Potential readers can then use your unbiased opinion to help them make purchase decisions. Thank you. The $5 campaign         runs from __December 15th 2020__ to __January 13th 2021.__*
+
 # C# 8 and .NET Core 3 Projects Using Azure - Second Edition 
 
 <a href="https://www.packtpub.com/in/web-development/c-8-and-net-core-3-0-projects-second-edition?utm_source=github&utm_medium=repository&utm_campaign=9781789612080"><img src="https://www.packtpub.com/media/catalog/product/cache/e4d64343b1bc593f1c5348fe05efa4a6/9/7/9781789612080-original.jpeg" alt="C# 8 and .NET Core 3 Projects Using Azure - Second Edition " height="256px" align="right"></a>
