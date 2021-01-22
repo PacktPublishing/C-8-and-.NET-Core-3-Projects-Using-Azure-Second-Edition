@@ -12,3 +12,4 @@ packages
 PublishProfiles/
 node_modules/
 *.deployproj
+/Chapter01/Dick.Helper
